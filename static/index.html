@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#04060f">
+  <meta name="description" content="Private ＧＡＭＥＲ-ＣＯＲＰ operator workspace. real-time operations workspace.">
+  <title>ＧＡＭＥＲ-ＣＯＲＰ / Operator Console</title>
+  <script src="/static/js/theme.js?v=18.5"></script>
+  <link rel="stylesheet" href="/static/css/theme.css?v=18.5">
+  <!-- Legacy skins retained for rollback: /static/css/styles.css, /static/css/control-v10.css, /static/css/command-v11.css, /static/css/glass-v13.css. -->
+  <link rel="stylesheet" href="/static/css/ui-v14.css?v=18.5">
+  <link rel="stylesheet" href="/static/css/ui-v17.css?v=18.5">
+  <script src="/static/js/app.js?v=18.5" defer></script>
+</head>
+<body class="admin-site">
+  <noscript><div class="no-script-warning">JavaScript is required for administrator sign-in. Open the running server at /admin with scripts enabled.</div></noscript>
+
+  <!-- background layers -->
+  <div id="v17-fx" aria-hidden="true">
+    <div class="fx-layer fx-aurora"></div>
+    <div class="fx-layer fx-floor"></div>
+    <div class="fx-layer fx-scanlines"></div>
+    <div class="fx-layer fx-noise"></div>
+    <div class="fx-layer fx-vignette"></div>
+    <span class="fx-orb o1"></span><span class="fx-orb o2"></span><span class="fx-orb o3"></span>
+  </div>
+
+  <div id="login-screen" class="login-screen">
+    <aside class="login-art" aria-hidden="true">
+      <div class="login-art-top"><span class="brand-mark-large">GC<span>+</span></span><span>CONTROL SYSTEM / 17</span></div>
+      <div class="login-art-center">
+        <div class="login-orbit login-orbit-one"></div><div class="login-orbit login-orbit-two"></div><div class="login-orbit login-orbit-three"></div>
+        <div class="login-art-core"><small>GAMER-CORP</small><strong>LV<span>+</span></strong><em>COMMAND DECK</em></div>
+        <span class="orbit-label orbit-label-a">PROFILE SYNC</span><span class="orbit-label orbit-label-b">XP TRACKING</span><span class="orbit-label orbit-label-c">FLEET / LIVE</span>
+      </div>
+      <div class="login-art-bottom"><strong>ＧＡＭＥＲ-ＣＯＲＰＯＲＡＴＩＯＮ</strong><span>Developer ! ＧＡＭＥＲ ＳＡＢＢＩＲ</span></div>
+    </aside>
+
+    <main class="login-content">
+      <div class="login-top"><a href="/" class="quiet-link"><span aria-hidden="true">←</span> Public level-up board</a><button type="button" class="theme-switch" data-theme-toggle><span data-theme-icon>☀</span><span data-theme-label>Light mode</span></button></div>
+      <section class="login-box" aria-labelledby="login-title">
+        <div class="login-label-row"><span class="eyebrow">PRIVATE OPERATOR ACCESS</span><span class="build-tag" id="build-tag">BUILD 18.5</span></div>
+        <div class="login-brand-full">ＧＡＭＥＲ-ＣＯＲＰ<span> / CONTROL</span></div>
+        <h1 id="login-title" class="glitch" data-text="Welcome">Welcome<br><em>back.</em></h1>
+        <p>Sign in to manage your Bot roster, stream the real activity log and inspect server-recorded signals.</p>
+        <form id="login-form" class="form-stack">
+          <label>Administrator username<input name="username" autocomplete="username" required maxlength="64" placeholder="Enter your username"></label>
+          <label>Password<input type="password" name="password" autocomplete="current-password" required placeholder="Enter your password"></label>
+          <button id="login-submit" class="button button-dark" type="submit"><span id="login-submit-label">Connect to workspace</span><span aria-hidden="true">↗</span></button>
+          <div id="login-error" class="inline-error" role="alert" aria-live="assertive"></div>
+          <p id="login-status" class="login-status" role="status" aria-live="polite">Checking admin service… You can sign in now.</p>
+          <div class="login-security"><span class="security-icon" aria-hidden="true">◆</span><p>Private admin workspace. Do not share your credentials, session cookies, or server secrets.</p></div>
+          <details class="admin-help"><summary>Password or server help</summary><p>Hosting environment variables override <code>.env</code>. If login is not working, the server operator can check configuration without printing the password with <code>python -m app.admin_access check</code>.</p></details>
+        </form>
+      </section>
+      <div class="login-bottom"><span>ＧＡＭＥＲ-ＣＯＲＰＯＲＡＴＩＯＮ</span><span>SECURE SESSION / HTTPS RECOMMENDED</span></div>
+    </main>
+  </div>
+
+  <div id="admin-shell" class="shell is-hidden">
+    <aside class="rail" aria-label="Workspace navigation">
+      <a href="/" class="rail-brand" aria-label="ＧＡＭＥＲ-ＣＯＲＰ public page">
+        <span class="rail-logo">GC<span>+</span></span>
+        <span class="brand-caption">ＧＡＭＥＲ-ＣＯＲＰ<small>OPERATOR CONSOLE</small></span>
+      </a>
+      <div class="rail-status"><span class="rail-pulse"></span><span><b>CONTROL DECK</b><small>PRIVATE WORKSPACE</small></span><span class="rail-version" id="rail-build">18.5</span></div>
+      <div class="rail-index">WORKSPACE / NAVIGATION</div>
+      <nav class="rail-nav" id="rail-nav">
+        <button data-view="overview" class="rail-link is-active"><span class="nav-symbol">◈</span><span>Overview</span><b>01</b></button>
+        <button data-view="accounts" class="rail-link"><span class="nav-symbol">▦</span><span>Bot roster</span><b id="rail-account-count">0</b></button>
+        <button data-view="activity" class="rail-link"><span class="nav-symbol">⌁</span><span>Activity log</span><b>↗</b></button>
+        <button data-view="settings" class="rail-link"><span class="nav-symbol">⚙</span><span>Settings</span><b>↗</b></button>
+      </nav>
+      <div class="rail-bottom">
+        <div class="rail-tip"><span class="rail-tip-icon">✦</span><div><strong>Telemetry, not promises</strong><p>Only server-saved profile and worker signals are shown.</p></div></div>
+        <a href="/" class="rail-public">View public board <span aria-hidden="true">↗</span></a>
+        <button id="logout-btn" class="rail-logout"><span class="logout-icon">↗</span> Sign out</button>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-top">
+        <div class="breadcrumb"><span>GC /</span> CONTROL DECK <i>/</i> <strong id="breadcrumb-current">OVERVIEW</strong></div>
+        <div class="top-actions">
+          <span id="sync-indicator" class="sync-indicator">● CONNECTING</span>
+          <span class="top-rule" aria-hidden="true"></span>
+          <button type="button" id="dock-toggle" class="theme-switch" aria-pressed="true"><span data-theme-icon>⌁</span><span id="dock-toggle-label">Live log on</span></button>
+          <button type="button" id="fx-toggle" class="theme-switch" aria-pressed="true"><span data-theme-icon>✦</span><span id="fx-toggle-label">Fast mode</span></button>
+          <button type="button" class="theme-switch" data-theme-toggle><span data-theme-icon>☀</span><span data-theme-label>Light mode</span></button>
+          <a href="/" class="top-public">Public board <span aria-hidden="true">↗</span></a>
+          <span class="user-chip"><span class="user-avatar">GC</span><span id="admin-name">ADMIN</span></span>
+        </div>
+      </header>
+
+      <!-- ===================== live log, errors and level progress ===================== -->
+      <section id="live-dock" class="live-dock rgb-frame" aria-label="Live operations deck">
+        <div class="dock-head">
+          <div class="dock-title"><span class="dock-live" id="dock-live-state"><i></i><span id="dock-live-label">STREAM / ATTACHING</span></span> <b>LIVE LOG</b></div>
+          <div class="dock-actions">
+            <select id="console-filter" aria-label="Filter the live console">
+              <option value="all">All events</option>
+              <option value="level_up">Level ups</option>
+              <option value="daily_limit_reached">Daily target reached</option><option value="exp_stall">No EXP credit from server</option><option value="profile_gain">Profile EXP gain</option>
+              <option value="udp_join">UDP joins</option>
+              <option value="udp_timeout">UDP timeouts</option>
+              <option value="queue_cooldown">Queue cooldown</option>
+              <option value="profile_check_failed">Profile check failed</option>
+              <option value="error">Errors only</option>
+            </select>
+            <button type="button" id="console-pause" class="button button-outline" aria-pressed="false">Pause stream</button>
+            <button type="button" id="console-clear" class="button button-outline">Clear view</button>
+            <button type="button" id="console-download" class="button button-outline">Download .log</button>
+          </div>
+        </div>
+        <div class="dock-ticker" aria-hidden="true"><div class="dock-track" id="dock-ticker"><div class="dock-run"><span>WAITING FOR SERVER SNAPSHOT</span><i>◆</i></div></div></div>
+        <div class="dock-grid">
+          <article class="console-card">
+            <h3><em>▚</em> LIVE LOG <span class="console-count" id="log-count-live">0 lines</span></h3>
+            <div class="log-stream" id="log-stream" role="log" aria-live="polite"><div class="log-hint">Connecting to your account activity…</div></div>
+            <div class="fx-hud"><span>EVERY LINE IS A SAVED ACCOUNT EVENT</span><span>READ-ONLY VIEW</span></div>
+          </article>
+          <div class="dock-grid-right">
+            <article class="console-card">
+              <h3><em>⚠</em> ERRORS <span class="console-count" id="error-count">0 open</span></h3>
+              <div class="error-rack" id="error-rack"><div class="error-empty">No client or server error recorded in this session.</div></div>
+            </article>
+            <article class="console-card">
+              <h3><em>✦</em> LEVEL PROGRESS <span class="console-count" id="radar-count">0 profiles</span></h3>
+              <div class="level-radar" id="level-radar"><div class="error-empty">Waiting for server profile data.</div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-overview" class="view-pane">
+        <div class="page-heading">
+          <div><div class="eyebrow">OPERATIONS / OVERVIEW</div><h1 class="reveal">Fleet <em>control.</em></h1><p>Track your saved profiles, worker states, queue signals and level progress in one place.</p></div>
+          <div class="heading-action"><button class="button button-outline" data-action="refresh"><span aria-hidden="true">↻</span> Refresh data</button><button class="button button-dark" data-action="open-add"><span aria-hidden="true">＋</span> Add Bot</button></div>
+        </div>
+        <div class="ops-banner rgb-frame">
+          <div class="ops-banner-copy"><span class="eyebrow"><i class="signal-dot"></i> COMMAND DECK / LIVE SNAPSHOT</span><h2>Your roster,<br><em>in sync.</em></h2><p>Review the latest saved profile data, the current queue state and every level change. Updates run automatically while you are signed in.</p><button class="text-button" data-action="goto-accounts">Open Bot roster <span aria-hidden="true">↗</span></button></div>
+          <div class="ops-banner-art" aria-hidden="true"><div class="ops-ring ring-one"></div><div class="ops-ring ring-two"></div><div class="ops-ring ring-three"></div><div class="ops-art-core"><span>GC</span><b>FLEET</b><small>PROFILE / UDP / XP</small></div><span class="ops-tag ops-tag-one">SYNC / READY</span><span class="ops-tag ops-tag-two">LIVE SIGNALS</span></div>
+          <div class="ops-banner-foot"><span>01 / SERVER PROFILE</span><span>02 / WORKER STATE</span><span>03 / ACTIVITY FEED</span><span>04 / LEVEL-UPS</span></div>
+        </div>
+        <div class="section-label-row"><span class="section-index">FLEET PULSE / 01</span><span>Current registered Bot states</span></div>
+        <div class="stat-strip" id="overview-stats"></div>
+        <div class="overview-layout">
+          <section class="overview-left"><div class="section-line"><div><span class="eyebrow">ROSTER / 02</span><h2>Account snapshot</h2></div><button class="text-button" data-action="goto-accounts">View full roster <span aria-hidden="true">↗</span></button></div><div id="overview-accounts" class="snapshot-list"></div></section>
+          <section class="overview-right"><div class="section-line"><div><span class="eyebrow">QUEUE / 03</span><h2>Recovery watch</h2></div><span class="signal-tag"><i></i> OBSERVING</span></div><div id="queue-observation" class="observation-list"></div><div class="observation-note"><span aria-hidden="true">ⓘ</span> A sent queue request does not confirm a server UDP JOIN or EXP reward.</div></section>
+        </div>
+        <div class="section-line daily-heading"><div><span class="eyebrow">DAILY / 04</span><h2>Daily EXP watch</h2></div><span class="signal-tag"><i></i> <span id="daily-watch-summary">Auto-offline when today's target is reached</span></span></div>
+        <section class="overview-left daily-watch-panel"><div id="daily-watch" class="daily-watch"></div></section>
+        <div class="section-line recent-heading"><div><span class="eyebrow">RECENT / 04</span><h2>Recorded activity</h2></div><button class="text-button" data-action="goto-activity">Open activity log <span aria-hidden="true">↗</span></button></div><div id="recent-activity" class="recent-list"></div>
+      </section>
+
+      <section id="view-accounts" class="view-pane is-hidden">
+        <div class="page-heading"><div><div class="eyebrow">OPERATIONS / BOT ROSTER</div><h1>Bot <em>directory.</em></h1><p>Private identifiers and account controls are only available inside this authenticated workspace.</p></div><div class="heading-action"><button class="button button-outline" data-action="open-bulk"><span aria-hidden="true">＋</span> Bulk add</button><button class="button button-dark" data-action="open-add"><span aria-hidden="true">＋</span> Add Bot</button></div></div>
+        <div class="directory-toolbar"><label class="search-field"><span aria-hidden="true">⌕</span><input id="account-search" type="search" placeholder="Search name, UID or Game ID" aria-label="Search accounts"></label><label class="filter-select"><span class="sr-only">Filter by state</span><select id="account-status" aria-label="Filter by status"><option value="all">All states</option><option value="active">Running</option><option value="searching_match">Searching</option><option value="in_match">UDP joined</option><option value="cooldown">Cooldown</option><option value="inactive">Stopped</option><option value="error">Error</option></select></label><label class="filter-select"><span class="sr-only">Sort accounts</span><select id="account-sort" aria-label="Sort accounts"><option value="name">Sort by name</option><option value="streak">Queue streak</option><option value="activity">Recent activity</option><option value="added">Date added</option></select></label></div>
+        <div class="bulk-toolbar"><label class="select-all"><input id="select-all" type="checkbox"><span>Select visible</span><strong id="selected-count">0 selected</strong></label><div class="bulk-actions"><button class="text-button" data-action="bulk-start">Start selected</button><button class="text-button" data-action="bulk-stop">Stop selected</button><label class="filter-select"><span class="sr-only">More selected account actions</span><select id="bulk-action-select" aria-label="More selected account actions"><option value="">More actions…</option><option value="restart">Restart selected</option><option value="change_region">Change region</option><option value="clear_errors">Clear errors</option><option value="reset_daily">Reset today's EXP</option><option value="delete">Delete selected</option></select></label><button class="text-button" data-action="run-bulk">Apply <span aria-hidden="true">↗</span></button><button class="text-button export-action" data-action="export">Export metadata ↓</button></div></div>
+        <div class="directory-head"><span>BOT / GAME ID</span><span>WORKER STATE</span><span>QUEUE / UDP</span><span>LEVEL / EXP</span><span>COMMANDS</span></div><div id="account-list" class="account-list"></div><div class="directory-footer"><span id="account-results">0 accounts</span><span>Last response <b id="account-checked">—</b></span></div>
+      </section>
+
+      <section id="view-activity" class="view-pane is-hidden">
+        <div class="page-heading"><div><div class="eyebrow">OPERATIONS / TELEMETRY</div><h1>Activity <em>feed.</em></h1><p>Everything your accounts did: profile updates, UDP events, level-ups and errors.</p></div><div class="heading-action"><button class="button button-outline" data-action="refresh-log"><span aria-hidden="true">↻</span> Refresh log</button></div></div>
+        <div class="log-intro"><div class="log-intro-icon">⌁</div><div><strong>Evidence first.</strong><p>Queue requests, UDP joins, server-end signals, profile EXP changes and level-ups are recorded separately. The live log above shows the same events as they happen.</p></div></div>
+        <div class="log-filters"><label class="filter-select"><span class="sr-only">Filter account</span><select id="log-account" aria-label="Filter account"><option value="">All accounts</option></select></label><label class="filter-select"><span class="sr-only">Filter level</span><select id="log-level" aria-label="Filter level"><option value="">All levels</option><option value="info">Info</option><option value="success">Success</option><option value="warning">Warning</option><option value="error">Error</option></select></label><label class="filter-select filter-wide"><span class="sr-only">Filter event</span><select id="log-type" aria-label="Filter event"><option value="">All events</option><option value="level_up">Level up</option><option value="udp_join">UDP join</option><option value="udp_phase">UDP phase</option><option value="udp_timeout">UDP timeout</option><option value="queue_cooldown">Queue cooldown</option><option value="queue_resume">Queue resume</option><option value="daily_limit_reached">Daily target reached</option><option value="exp_stall">No EXP credit from server</option><option value="profile_gain">Profile EXP increase</option><option value="profile_check_failed">Profile check failed</option><option value="server_finish">Server end signal</option><option value="worker_output">Other worker output</option></select></label></div>
+        <div class="log-heading"><span>TIME</span><span>BOT / EVENT TYPE</span><span>RECORDED EVENT</span></div><div id="activity-list" class="activity-list"></div><div class="log-footer"><span id="log-count">0 events</span><button id="load-more" class="button button-outline is-hidden" data-action="load-more">Load older events ↓</button></div>
+      </section>
+
+      <section id="view-settings" class="view-pane is-hidden">
+        <div class="page-heading"><div><div class="eyebrow">OPERATIONS / PREFERENCES</div><h1>System <em>settings.</em></h1><p>Workspace security, metadata tools, display effects and connection diagnostics.</p></div></div>
+        <div class="settings-grid">
+          <article class="setting-block"><div class="setting-icon">⌁</div><span class="eyebrow">01 / NETWORK</span><h2>Regional diagnostics</h2><p>Check DNS and current version data for a selected region.</p><div class="inline-fields"><label class="filter-select"><span class="sr-only">Region for diagnostics</span><select id="diagnostic-region" aria-label="Region for diagnostics"></select></label><button class="button button-dark" data-action="diagnostics">Run check <span aria-hidden="true">↗</span></button></div><div id="diagnostic-result" class="setting-result">No check run in this browser session.</div></article>
+          <article class="setting-block"><div class="setting-icon">⇧</div><span class="eyebrow">02 / ACCOUNT DATA</span><h2>Import &amp; export</h2><p>Metadata exports exclude passwords and access tokens. Review public IDs before sharing.</p><div class="setting-actions"><button class="button button-outline" data-action="export">Download JSON ↓</button><button class="button button-outline" data-action="open-import">Import JSON ↑</button></div></article>
+          <article class="setting-block"><div class="setting-icon">◆</div><span class="eyebrow">03 / SECURITY</span><h2>Change admin password</h2><form id="password-form" class="form-stack"><label>Current password<input name="current" type="password" autocomplete="current-password" required></label><label>New password<input name="next" type="password" autocomplete="new-password" minlength="12" required></label><button class="button button-dark" type="submit">Update password <span aria-hidden="true">↗</span></button></form></article>
+          <article class="setting-block"><div class="setting-icon">⏱</div><span class="eyebrow">05 / DAILY LIMITS</span><h2>Daily EXP target</h2><p>Each account is stopped automatically once its verified daily EXP reaches the target for its level.</p><div class="setting-result" id="daily-rule-text">LV 1-29: 5,000 EXP/day · LV 30+: 50,000 EXP/day</div><div class="setting-actions"><button class="button button-outline" data-action="reset-all-daily">Reset every account today</button><button class="button button-outline" data-action="open-daily">Open daily watch <span aria-hidden="true">↗</span></button></div><div class="setting-footnote">COUNTS ONLY SERVER-VERIFIED PROFILE EXP</div></article>
+          <article class="setting-block safety-block"><div class="setting-icon">⚙</div><span class="eyebrow">06 / SERVER SAFETY</span><h2>Both servers stay comfortable</h2><p>This instance and the game servers are protected by fixed limits: how often a profile is read, how many reads run at once, and automatic slow-down when the game answers with errors.</p><div class="safety-grid" id="safety-grid"></div><div class="setting-result" id="safety-note">Waiting for the first reading…</div><div class="setting-footnote">READ FROM THE LIVE SESSION — NO EXTRA REQUESTS</div></article>
+          <article class="setting-block"><div class="setting-icon">◉</div><span class="eyebrow">04 / LEVEL DATA</span><h2>EXP reference</h2><p>Review the user-supplied level chart used only for next-level estimates.</p><button class="button button-outline" data-action="open-chart">View reference <span aria-hidden="true">↗</span></button><div class="setting-footnote">REFERENCE CHART · NOT SERVER REWARD DATA</div></article>
+          <article class="setting-block"><div class="setting-icon">✦</div><span class="eyebrow">05 / PERFORMANCE</span><h2>Speed &amp; effects</h2><p>Fast mode keeps the dashboard light on phones and older laptops. Immersive mode adds extra motion and glow.</p><div class="setting-actions"><button class="button button-outline" id="fx-toggle-2" type="button" aria-pressed="false">Toggle immersive effects</button><button class="button button-outline" id="dock-toggle-2" type="button" aria-pressed="true">Toggle live log</button></div></article>
+        </div>
+      </section>
+      <footer class="admin-credit"><span>ＧＡＭＥＲ-ＣＯＲＰＯＲＡＴＩＯＮ</span><i>·</i> Developer ! ＧＡＭＥＲ ＳＡＢＢＩＲ <span class="footer-build">OPERATOR CONSOLE / V17</span></footer>
+    </main>
+  </div>
+
+  <div id="drawer-scrim" class="scrim is-hidden" data-action="close-drawer"></div>
+  <aside id="detail-drawer" class="detail-drawer is-hidden" aria-label="Account details" aria-modal="true" role="dialog"><div class="drawer-head"><div><span class="eyebrow">BOT / DETAILS</span><p>Saved account and worker signals</p></div><button data-action="close-drawer" class="icon-button" aria-label="Close details">✕</button></div><div id="detail-body"></div></aside>
+  <div id="modal-scrim" class="scrim is-hidden" data-action="close-modal"></div>
+  <section id="modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><div><div class="eyebrow" id="modal-kicker">ADMIN ACTION</div><h2 id="modal-title">Account</h2></div><button data-action="close-modal" class="icon-button" aria-label="Close dialog">✕</button></div><div id="modal-body"></div></section>
+
+  <!-- Real level-up celebration: rendered only from server-confirmed level changes -->
+  <div id="levelup-overlay" class="is-hidden" role="alertdialog" aria-modal="true" aria-labelledby="levelup-title">
+    <div class="levelup-card rgb-frame">
+      <div class="levelup-shards" aria-hidden="true"></div>
+      <div class="levelup-kicker">SERVER-CONFIRMED LEVEL UP</div>
+      <h2 class="levelup-name" id="levelup-title" data-text="LEVEL UP">LEVEL UP</h2>
+      <div class="levelup-jump"><b class="from" id="levelup-from">LV —</b><span class="levelup-arrow" aria-hidden="true">➜</span><b class="to" id="levelup-to">LV —</b></div>
+      <div class="levelup-facts" id="levelup-facts"></div>
+      <p class="levelup-source" id="levelup-source">Recorded from a saved server profile check. Not a reward promise.</p>
+      <button type="button" class="button button-dark" id="levelup-close">Continue to console <span aria-hidden="true">↗</span></button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast is-hidden" role="status" aria-live="polite"></div>
+</body>
+</html>

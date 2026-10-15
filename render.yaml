@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ff-multi-account-dashboard
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --loop asyncio
+    envVars:
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FERNET_KEY
+        sync: false  # Supply a persistent Fernet.generate_key() value in Render secrets
+      - key: MAX_ACTIVE_WORKERS
+        value: "20"
+      - key: MAX_CONCURRENT_LOGINS
+        value: "4"
+      - key: DEFAULT_ACCOUNT_REGION
+        value: ME

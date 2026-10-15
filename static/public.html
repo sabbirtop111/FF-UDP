@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#04060f">
+  <meta name="description" content="ＧＡＭＥＲ-ＣＯＲＰ read-only level and server telemetry dashboard. ">
+  <title>ＧＡＭＥＲ-ＣＯＲＰ / Level-Up Control Deck</title>
+  <script src="/static/js/theme.js?v=18.5"></script>
+  <link rel="stylesheet" href="/static/css/theme.css?v=18.5">
+  <!-- Legacy skins retained for rollback: /static/css/public.css, /static/css/command-v11.css, /static/css/glass-v13.css. -->
+  <link rel="stylesheet" href="/static/css/ui-v14.css?v=18.5">
+  <link rel="stylesheet" href="/static/css/ui-v17.css?v=18.5">
+  <script src="/static/js/public.js?v=18.5" defer></script>
+</head>
+<body class="public-site">
+  <div id="v17-fx" aria-hidden="true">
+    <div class="fx-layer fx-aurora"></div>
+    <div class="fx-layer fx-floor"></div>
+    <div class="fx-layer fx-scanlines"></div>
+    <div class="fx-layer fx-noise"></div>
+    <div class="fx-layer fx-vignette"></div>
+    <span class="fx-orb o1"></span><span class="fx-orb o2"></span><span class="fx-orb o3"></span>
+  </div>
+
+  <header class="public-header">
+    <a class="wordmark" href="/" aria-label="ＧＡＭＥＲ-ＣＯＲＰ home">
+      <span class="mark" aria-hidden="true"><span>G</span><i>C</i></span>
+      <span class="wordmark-text">ＧＡＭＥＲ-ＣＯＲＰ<small>ＧＡＭＥＲ-ＣＯＲＰＯＲＡＴＩＯＮ · V17</small></span>
+    </a>
+    <nav class="public-nav" aria-label="Main navigation">
+      <a href="#bots">Bot roster</a>
+      <a href="#intel">XP system</a>
+    </nav>
+    <div class="header-right">
+      <span id="connection-state" class="connection-state"><i></i>CONNECTING</span>
+      <button type="button" id="fx-toggle" class="theme-switch" aria-pressed="true"><span data-theme-icon>✦</span><span id="fx-toggle-label">Fast mode</span></button>
+      <button type="button" class="theme-switch" data-theme-toggle><span data-theme-icon>☀</span><span data-theme-label>Light mode</span></button>
+      <a href="/admin" class="admin-entry">Admin <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main class="site-frame">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-topline">
+        <span class="hero-kicker"><i class="signal-dot"></i> COMMUNITY LEVEL-UP DASHBOARD</span>
+        <span class="hero-ref">GC / PUBLIC TERMINAL <b>V17</b></span>
+      </div>
+      <div class="hero-main">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">THE NEXT LEVEL STARTS HERE</p>
+          <h1 id="hero-heading" class="glitch" data-text="LEVEL">LEVEL<br><em>UP.</em></h1>
+          <p class="hero-description">A read-only command deck for saved Bot profiles, chart-verified level progress, live level-up signals and recorded server telemetry.</p>
+          <div class="hero-actions">
+            <a href="#bots" class="jump-link">Explore the roster <span aria-hidden="true">↓</span></a>
+            <a href="/admin" class="hero-secondary">Operator access <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-trust-row">
+            <span><i></i> Server-saved profile data</span>
+            <span><i></i> Auto refresh every 10 seconds</span>
+            <span><i></i> Level-up alerts</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-orbit orbit-a"></div>
+          <div class="visual-orbit orbit-b"></div>
+          <div class="visual-orbit orbit-c"></div>
+          <div class="visual-scanline"></div>
+          <div class="visual-core"><span class="core-overline">PLAYER PROGRESSION</span><strong>XP<span>+</span></strong><small>PROFILE / LEVEL / SIGNAL</small></div>
+          <div class="visual-chip chip-one"><i></i> PROFILE SYNC</div>
+          <div class="visual-chip chip-two">LV <b>TRACK</b></div>
+          <div class="visual-chip chip-three">READ-ONLY <b>MODE</b></div>
+          <div class="visual-axis axis-top">01 / OBSERVE</div>
+          <div class="visual-axis axis-bottom">NO INVENTED REWARDS</div>
+        </div>
+      </div>
+      <div class="hero-bottomline">
+        <span><b>01</b> PROFILE EXP</span><span><b>02</b> LEVEL TRACK</span><span><b>03</b> UDP SIGNALS</span><span><b>04</b> LEVEL-UP WATCH</span>
+        <span class="hero-bottom-note">A UDP JOIN IS NOT AN EXP REWARD</span>
+      </div>
+    </section>
+
+    <section class="strip-section" aria-label="Live fleet ticker">
+      <div class="dock-ticker" aria-hidden="true"><div class="dock-track" id="strip-track"><div class="dock-run"><span>WAITING FOR SERVER SNAPSHOT</span><i>◆</i></div></div></div>
+    </section>
+
+    <section class="intel-strip" id="intel" aria-label="How to read the dashboard">
+      <article><span class="intel-icon">01</span><div><strong>Saved profile</strong><p>Level and total EXP come from the last server profile response.</p></div></article>
+      <article><span class="intel-icon">02</span><div><strong>Chart-based progress</strong><p>Next-level estimates appear only when the supplied chart matches.</p></div></article>
+      <article><span class="intel-icon">03</span><div><strong>Server signals</strong><p>Queue requests, UDP joins and server-end signals stay separate.</p></div></article>
+    </section>
+
+    <section class="status-section" aria-label="Saved Bot state totals">
+      <div class="section-caption"><span class="section-index">FLEET PULSE / 01</span><span>Totals from saved worker states</span></div>
+      <div id="public-metrics" class="public-metrics">
+        <div class="metric"><span>ALL BOTS</span><strong>—</strong><small>Saved profiles</small></div>
+        <div class="metric"><span>SEARCHING</span><strong>—</strong><small>Queue activity</small></div>
+        <div class="metric"><span>UDP JOINED</span><strong>—</strong><small>Join signals</small></div>
+        <div class="metric"><span>COOLDOWN</span><strong>—</strong><small>Offline timers</small></div>
+      </div>
+    </section>
+
+    <section class="fleet-section" id="bots" aria-labelledby="bot-title">
+      <div class="fleet-heading">
+        <div class="fleet-title-block">
+          <span class="section-index">ROSTER / 02</span>
+          <h2 id="bot-title">Your <em>line-up.</em></h2>
+          <p>Each card is an actual saved Bot with its latest server profile, queue counts and level progress. EXP progress is an estimate from the supplied reference chart—not a reward promise.</p>
+        </div>
+        <div class="roster-controls">
+          <label class="search" for="bot-search"><span aria-hidden="true">⌕</span><input id="bot-search" type="search" placeholder="Search Bot or Game ID" aria-label="Search Bots"></label>
+          <label class="select-wrap"><span class="sr-only">Filter Bot status</span><select id="bot-filter" aria-label="Filter Bot status"><option value="all">All states</option><option value="active">Active</option><option value="searching_match">Searching</option><option value="in_match">UDP joined</option><option value="cooldown">Cooldown</option><option value="inactive">Stopped</option><option value="error">Error</option></select></label>
+          <label class="select-wrap sort-select"><span class="sr-only">Sort Bots</span><select id="bot-sort" aria-label="Sort Bots"><option value="name">Name A–Z</option><option value="level">Highest level</option><option value="exp">Highest EXP</option><option value="activity">Recent profile check</option></select></label>
+          <button type="button" id="refresh-bots" class="refresh-button" aria-label="Refresh Bot data"><span aria-hidden="true">↻</span> Refresh</button>
+        </div>
+      </div>
+      <div class="roster-meta"><div id="bot-results" class="bot-results" role="status" aria-live="polite">Waiting for server data…</div><span id="last-updated" class="last-updated">Not checked yet</span></div>
+      <div id="bot-grid" class="fleet-grid" aria-live="polite"><div class="empty"><span class="empty-orbit" aria-hidden="true">◎</span><strong>Syncing the roster</strong><span>Waiting for the latest saved profile data…</span></div></div>
+      <p class="privacy-note"><span aria-hidden="true">◆</span> Guest login identifiers, private secrets, tokens and admin controls are never displayed on this public page.</p>
+    </section>
+  </main>
+
+  <footer class="public-footer">
+    <div class="footer-brand"><span class="footer-mark">GC</span><div><strong>ＧＡＭＥＲ-ＣＯＲＰ</strong><small>ＧＡＭＥＲ-ＣＯＲＰＯＲＡＴＩＯＮ</small><small>Developer ! ＧＡＭＥＲ ＳＡＢＢＩＲ · V17</small></div></div>
+    <p>Independent community dashboard. Profile EXP and server signals are saved observations—not guaranteed game rewards or official Garena data.</p>
+    <a href="/admin">Operator sign in <span aria-hidden="true">↗</span></a>
+  </footer>
+
+  <!-- Public level-up watch: fires only when a saved server profile level really increases -->
+  <div id="levelup-overlay" class="is-hidden" role="status" aria-live="polite">
+    <div class="levelup-card rgb-frame">
+      <div class="levelup-shards" aria-hidden="true"></div>
+      <div class="levelup-kicker">SAVED PROFILE LEVEL UP</div>
+      <h2 class="levelup-name" id="levelup-title">LEVEL UP</h2>
+      <div class="levelup-jump"><b class="from" id="levelup-from">LV —</b><span class="levelup-arrow" aria-hidden="true">➜</span><b class="to" id="levelup-to">LV —</b></div>
+      <div class="levelup-facts" id="levelup-facts"></div>
+      <p class="levelup-source" id="levelup-source">Detected from the saved profile data.</p>
+      <button type="button" class="button button-dark" id="levelup-close">Back to the roster <span aria-hidden="true">↗</span></button>
+    </div>
+  </div>
+</body>
+</html>

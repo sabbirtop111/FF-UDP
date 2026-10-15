@@ -1,0 +1,44 @@
+/* V13 / glass signal layer. Real data, photographic scene, restrained frosted surfaces. */
+:root,[data-theme="dark"]{
+  --glass-surface:rgba(17,30,35,.72);
+  --glass-raised:rgba(23,39,44,.79);
+  --glass-border:rgba(192,240,220,.23);
+  --glass-specular:rgba(255,255,255,.12);
+  --glass-shadow:0 20px 58px rgba(0,0,0,.27);
+}
+[data-theme="light"]{
+  --glass-surface:rgba(255,255,255,.78);
+  --glass-raised:rgba(248,253,250,.88);
+  --glass-border:rgba(68,110,97,.22);
+  --glass-specular:rgba(255,255,255,.85);
+  --glass-shadow:0 18px 44px rgba(26,61,50,.12);
+}
+body{background-image:radial-gradient(circle at 88% 8%,color-mix(in srgb,var(--gc-cyan) 9%,transparent),transparent 36%),radial-gradient(circle at 5% 74%,color-mix(in srgb,var(--gc-pink) 8%,transparent),transparent 34%),linear-gradient(130deg,var(--gc-base),color-mix(in srgb,var(--gc-cyan) 5%,var(--gc-base)))!important}
+/* Header and navigation keep blur under scrolling; no overlays block controls. */
+.public-header,.rail,.workspace-top{background:var(--glass-surface)!important;backdrop-filter:blur(22px) saturate(135%);-webkit-backdrop-filter:blur(22px) saturate(135%);border-color:var(--glass-border)!important;box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.login-box{position:relative;background:var(--glass-surface)!important;border:1px solid var(--glass-border)!important;border-top:3px solid var(--gc-cyan)!important;box-shadow:var(--glass-shadow);backdrop-filter:blur(24px) saturate(132%);-webkit-backdrop-filter:blur(24px) saturate(132%)}
+.login-box:before{content:'';position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,var(--glass-specular),transparent 85%);pointer-events:none}
+.art-identity{background:rgba(9,25,29,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding-block:22px;padding-right:16px}
+.login-box .form-stack input{background:var(--glass-raised)!important;border-color:var(--glass-border)!important}.login-box .form-stack input:focus{border-color:var(--gc-cyan)!important}
+.login-box .button-dark{background:linear-gradient(105deg,var(--gc-cyan),color-mix(in srgb,var(--gc-cyan) 72%,var(--gc-pink)))!important;color:#102017!important;box-shadow:0 10px 28px color-mix(in srgb,var(--gc-cyan) 20%,transparent)!important}
+/* Admin cards keep the existing working form elements, only their surfaces change. */
+.stat-unit,.overview-left,.recent-list,.setting-block,.account-row,.activity-row,.directory-toolbar,.log-filters,.bulk-toolbar,.detail-drawer,.modal{background:var(--glass-surface)!important;border-color:var(--glass-border)!important;box-shadow:var(--glass-shadow);backdrop-filter:blur(16px) saturate(120%);-webkit-backdrop-filter:blur(16px) saturate(120%)}
+.stat-unit,.overview-left,.recent-list,.setting-block,.account-row,.detail-drawer,.modal{border-radius:12px!important}
+.overview-right{background:linear-gradient(130deg,rgba(17,44,45,.87),rgba(20,51,39,.80))!important;border:1px solid var(--glass-border)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--glass-shadow);border-radius:12px!important}
+.directory-head,.log-heading,.search-field,.directory-toolbar select,.log-filters select,.bulk-toolbar select,.form-stack input,.form-stack select,.form-stack textarea{background:var(--glass-raised)!important;border-color:var(--glass-border)!important}
+.rail-link.is-active,.button-dark{box-shadow:0 8px 24px color-mix(in srgb,var(--gc-cyan) 18%,transparent)!important}
+[data-theme="light"] .overview-right{background:linear-gradient(135deg,#28483fe8,#35604ce8)!important;color:#f6fcf9}
+/* Public photo: transparent readout, while EXP data stays legible. */
+.hero{box-shadow:var(--glass-shadow);border-color:var(--glass-border)!important}
+.hero-graphic{background:rgba(10,30,35,.62)!important;border:1px solid rgba(200,249,231,.38)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 18px 38px rgba(0,0,0,.27);backdrop-filter:blur(20px) saturate(130%);-webkit-backdrop-filter:blur(20px) saturate(130%);border-radius:12px}
+[data-theme="light"] .hero-graphic{background:rgba(248,255,252,.80)!important;border-color:rgba(44,98,76,.24)!important;box-shadow:inset 0 1px 0 #fff,0 14px 32px #20463428}
+.metric,.fleet-card{background:var(--glass-surface)!important;border:1px solid var(--glass-border)!important;border-radius:12px;box-shadow:var(--glass-shadow);backdrop-filter:blur(20px) saturate(128%);-webkit-backdrop-filter:blur(20px) saturate(128%)}
+.fleet-card:hover{box-shadow:0 24px 62px color-mix(in srgb,var(--gc-cyan) 11%,rgba(0,0,0,.22));border-color:var(--gc-cyan)!important}
+.level-zone{background:linear-gradient(120deg,color-mix(in srgb,var(--gc-cyan) 11%,transparent),color-mix(in srgb,var(--gc-pink) 6%,transparent))!important;border-top:1px solid var(--glass-border)}
+.telemetry-cell,.level-unavailable,.card-details{background:var(--glass-raised)!important;border-color:var(--glass-border)!important;border-radius:6px}
+.level-track{background:color-mix(in srgb,var(--gc-edge) 72%,transparent)}
+.search,.filters select{background:var(--glass-surface)!important;border-color:var(--glass-border)!important;backdrop-filter:blur(12px)}
+.public-footer{background:var(--glass-surface)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:var(--glass-border)!important}
+@media(max-width:600px){.hero-graphic{backdrop-filter:blur(12px)}.metric,.fleet-card,.stat-unit{border-radius:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+.build-tag{display:inline-block;margin-left:10px;border:1px solid var(--glass-border);padding:2px 5px;color:var(--gc-dim);font:800 9px ui-monospace,monospace;vertical-align:middle}

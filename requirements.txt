@@ -1,0 +1,15 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+httpx>=0.27.0
+cryptography>=42.0.0
+pycryptodome>=3.20.0
+protobuf>=4.25.0
+protobuf-decoder>=0.4.0
+google-play-scraper>=1.2.7
+argon2-cffi>=23.1.0
+psutil>=5.9.8
+python-dotenv>=1.0.1
+python-multipart>=0.0.9
+pydantic>=2.7.0
+dnspython
+requests
